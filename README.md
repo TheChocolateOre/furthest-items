@@ -1,4 +1,4 @@
-# Furthest Items
+# Furthest Items (Furthest Neighbours Search)
 Implementations of `k-furthest items` algorithms in Java.
 
 ### The problem
