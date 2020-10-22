@@ -1,5 +1,5 @@
 # Furthest Neighbours Search
-Implementations of `k-furthest items` algorithms in Java.
+Implementations of `k-furthest neighbours` algorithms in Java.
 
 ### The problem
 Let `U` a collection of items, `Q` a collection of query items and `k` a positive integer. The k-furthest items
