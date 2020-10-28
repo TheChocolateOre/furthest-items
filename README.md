@@ -1,5 +1,5 @@
-# Furthest Items (Furthest Neighbours Search)
-Implementations of `k-furthest items` algorithms in Java.
+# Furthest Neighbours Search
+Implementations of `k-furthest neighbours` algorithms in Java.
 
 ### The problem
 Let `U` a collection of items, `Q` a collection of query items and `k` a positive integer. The k-furthest items
@@ -12,7 +12,7 @@ provided by the user.
 3. [Query Dependent](https://www.itu.dk/people/pagh/papers/approx-furthest-neighbor-SISAP15.pdf) (QueryDependent.java): It is approximate.
 
 ### Disclaimer
-This project has a experimental theme, I would not recommend using it in production.
+This project has an experimental theme, I would not recommend using it in production.
 
 ### Java version
 15+ (I'm pretty sure it can compile with a lower version too)
