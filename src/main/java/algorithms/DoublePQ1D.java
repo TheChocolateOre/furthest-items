@@ -76,68 +76,13 @@ public class DoublePQ1D<T> implements FurthestItems<T> {
 
     }//end inner class Bucket
 
-    private class TransitiveMap implements Map<T, Collection<T>> {
+    private class TransitiveMap extends AbstractMap<T, Collection<T>> {
 
         @NotNull Map<T, Bucket> wrappedItems;
-        @Nullable Collection<Collection<T>> values;
         @Nullable Set<Entry<T, Collection<T>>> entries;
 
         TransitiveMap(@NotNull Map<T, Bucket> wrappedItems) {
             this.wrappedItems = wrappedItems;
-        }
-
-        @Override
-        public int size() {
-            return this.wrappedItems.size();
-        }
-
-        @Override
-        public boolean isEmpty() {
-            return this.wrappedItems.isEmpty();
-        }
-
-        @Override
-        public boolean containsKey(Object key) {
-            return this.wrappedItems.containsKey(key);
-        }
-
-        @Override
-        public boolean containsValue(Object value) {
-            return this.wrappedItems.entrySet()
-                       .stream()
-                       .anyMatch(e -> e.getValue().furthest.equals(value));
-        }
-
-        @Override
-        public Collection<T> get(Object key) {
-            return this.wrappedItems.get(key).furthest;
-        }
-
-        @Override
-        public Collection<T> remove(Object key) {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public void clear() {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public @NotNull Set<T> keySet() {
-            return this.wrappedItems.keySet();
-        }
-
-        @Override
-        public @NotNull Collection<Collection<T>> values() {
-            if (null == this.values) {
-                this.values = this.wrappedItems.values()
-                        .stream()
-                        .map(b -> b.furthest)
-                        .collect(Collectors.toUnmodifiableList());
-            }//end if
-
-            return this.values;
         }
 
         @Override
@@ -151,22 +96,6 @@ public class DoublePQ1D<T> implements FurthestItems<T> {
             }//end if
 
             return this.entries;
-        }
-
-        @Override
-        public void putAll(@NotNull Map<? extends T, ? extends Collection<T>>
-                m) {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public @Nullable Collection<T> put(T key, Collection<T> value) {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public String toString() {
-            return this.wrappedItems.toString();
         }
 
     }//end inner class TransitiveMap
