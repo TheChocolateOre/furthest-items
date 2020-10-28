@@ -41,7 +41,8 @@ public interface QualityEstimator<T> {
          * quality than low values.
          */
         @Override
-        public double estimate(@NotNull Map<T, Collection<T>> solution) {
+        public double estimate(@NotNull Map<T, ? extends Collection<T>>
+                solution) {
             return solution.entrySet()
                            .parallelStream()
                            .mapToDouble(e -> e.getValue()
@@ -61,6 +62,6 @@ public interface QualityEstimator<T> {
      * @return The quality of the solution. High values describe higher
      * quality than low values.
      */
-    double estimate(@NotNull Map<T, Collection<T>> solution);
+    double estimate(@NotNull Map<T, ? extends Collection<T>> solution);
 
 }//end interface QualityEstimator

@@ -67,14 +67,6 @@ public interface FurthestItems<T> {
         return minQueue;
     }
 
-    @Deprecated(forRemoval = true)
-    static <T> long bench(@NotNull FurthestItems<T> algorithm, @NotNull
-            Collection<T> query, final int k) {
-        final long START = System.nanoTime();
-        algorithm.find(query, k);
-        return System.nanoTime() - START;
-    }
-
     /**
      * Solves the k-furthest items problem
      * @param query A {@link Collection} with the query items.
@@ -85,8 +77,8 @@ public interface FurthestItems<T> {
      * @throws IllegalArgumentException If {@code query.isEmpty()}.
      * @throws IllegalArgumentException If {@code k < 1 || k > universe.size()}.
      */
-    default @NotNull Map<T, Collection<T>> find(@NotNull Collection<T> query,
-            final int k) {
+    default @NotNull Map<T, ? extends Collection<T>> find(@NotNull Collection<T>
+            query, final int k) {
         if (query.isEmpty()) {
             throw new IllegalArgumentException("Argument Collection query " +
                     "can't be empty.");

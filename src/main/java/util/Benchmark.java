@@ -20,7 +20,7 @@ public class Benchmark<T> {
 
         final long INIT_DURATION;
         final long RUN_DURATION;
-        final @NotNull Map<T, Collection<T>> SOLUTION;
+        final @NotNull Map<T, ? extends Collection<T>> SOLUTION;
         final @NotNull String ALGORITHM_NAME;
 
         Instance(@NotNull Function<Collection<T>, FurthestItems<T>>
