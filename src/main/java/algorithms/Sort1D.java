@@ -65,8 +65,7 @@ public class Sort1D<T> implements FurthestItems<T> {
         int rl = this.universe.size() - k;
         int rh = this.universe.size() - 1;
 
-        if (Math.abs(this.getAsDouble(lh) - QUERY_VALUE) >
-            Math.abs(this.getAsDouble(rh) - QUERY_VALUE)) {
+        if (this.distance(lh, QUERY_VALUE) > this.distance(rh, QUERY_VALUE)) {
             return Collections.unmodifiableCollection(this.universe.subList(ll,
                     k));
         }//end if
