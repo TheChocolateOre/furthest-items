@@ -81,9 +81,9 @@ public class Sort1D<T> implements FurthestItems<T> {
             if (this.distance(LEFT_MID, QUERY_VALUE) >
                 this.distance(RIGHT_MID, QUERY_VALUE)) {
                 ll = LEFT_MID + 1;
-                rl = RIGHT_MID + (((rh - rl) % 2 == 1) ? 0 : 1);
+                rl = RIGHT_MID + (rh - rl + 1) % 2;
             } else {
-                lh = LEFT_MID - (((lh - ll) % 2 == 1) ? 0 : 1);
+                lh = LEFT_MID - (lh - ll + 1) % 2;
                 rh = RIGHT_MID - 1;
             }//end if
         } while (lh - ll > -1);
