@@ -30,18 +30,24 @@ public class DoublePQ1D<T> implements FurthestItems<T> {
     private class Bucket implements AutoCloseable {
 
         final double QUERY_VALUE;
+        final int K;
         @NotNull Collection<T> furthest;
         @Nullable Queue<T> minQ = new LinkedList<>();
         @Nullable Queue<T> maxQ = new LinkedList<>();
 
         public Bucket(@NotNull T query, final int k) {
             this.QUERY_VALUE = DoublePQ1D.this.toDouble.applyAsDouble(query);
+            this.K = k;
             this.furthest = new ArrayList<>(k);
         }
 
-        void feed(@NotNull T min, @NotNull T max) {
-            this.minQ.add(min);
-            this.maxQ.add(max);
+        void add(@NotNull T min, @NotNull T max) {
+            if (this.furthest.size() + this.minQ.size() < this.K) {
+                this.minQ.add(min);
+            }//end if
+            if (this.furthest.size() + this.maxQ.size() < this.K) {
+                this.maxQ.add(max);
+            }//end if
             this.next();
         }
 
@@ -51,7 +57,7 @@ public class DoublePQ1D<T> implements FurthestItems<T> {
                     this.minQ.element()));
             final double D_MAX = Math.abs(this.QUERY_VALUE -
                     DoublePQ1D.this.toDouble.applyAsDouble(
-                            this.maxQ.element()));
+                    this.maxQ.element()));
 
             if (D_MIN > D_MAX) {
                 this.furthest.add(this.minQ.remove());
@@ -144,8 +150,8 @@ public class DoublePQ1D<T> implements FurthestItems<T> {
             maxBuffer.add(MAX);
             query.parallelStream()
                  .forEach(q -> buckets.computeIfAbsent(q, key -> new Bucket(key,
-                                            k))
-                                      .feed(MIN.ITEM, MAX.ITEM));
+                            k))
+                                      .add(MIN.ITEM, MAX.ITEM));
         }//end for
 
         buckets.forEach((item, bucket) -> bucket.close());
@@ -170,7 +176,7 @@ public class DoublePQ1D<T> implements FurthestItems<T> {
             final Wrapper MAX = this.maxPQ.remove();
             minBuffer.add(MIN);
             maxBuffer.add(MAX);
-            bucket.feed(MIN.ITEM, MAX.ITEM);
+            bucket.add(MIN.ITEM, MAX.ITEM);
         }//end for
 
         this.minPQ.addAll(minBuffer);
