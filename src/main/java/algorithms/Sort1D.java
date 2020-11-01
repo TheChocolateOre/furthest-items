@@ -33,6 +33,7 @@ public class Sort1D<T> implements FurthestItems<T> {
 
     private @NotNull List<T> universe;
     private @NotNull ToDoubleFunction<T> toDouble;
+    private double threshold;
 
     public Sort1D(@NotNull Collection<T> universe, @NotNull ToDoubleFunction<T>
             toDouble) {
@@ -46,6 +47,19 @@ public class Sort1D<T> implements FurthestItems<T> {
 
         this.universe = items;
         this.toDouble = toDouble;
+    }
+
+    public Sort1D(@NotNull Collection<T> universe, @NotNull ToDoubleFunction<T>
+            toDouble, final double delta) {
+        this(universe, toDouble);
+
+        //delta of 0.0 means, return whatever you want
+        if (delta < 0.0 || delta > 1.0) {
+            throw new IllegalArgumentException("Argument delta must be " +
+                    "in range [0.0, 1.0].");
+        }//end if
+
+        this.threshold = 1.0 - delta;
     }
 
     @Override
@@ -75,21 +89,28 @@ public class Sort1D<T> implements FurthestItems<T> {
                     this.universe.size()));
         }//end if
 
+        int lastSafeL;
+        int lastSafeR;
+        double value = 1.0;
         do {
             final int LEFT_MID = ll + (lh - ll) / 2;
             final int RIGHT_MID = rh - (rh - rl) / 2;
             if (this.distance(LEFT_MID, QUERY_VALUE) >
-                this.distance(RIGHT_MID, QUERY_VALUE)) {
+                    this.distance(RIGHT_MID, QUERY_VALUE)) {
                 ll = LEFT_MID + 1;
                 rl = RIGHT_MID + (rh - rl + 1) % 2;
+                lastSafeL = LEFT_MID;
+                lastSafeR = rl;
             } else {
                 lh = LEFT_MID - (lh - ll + 1) % 2;
                 rh = RIGHT_MID - 1;
+                lastSafeL = lh;
+                lastSafeR = RIGHT_MID;
             }//end if
-        } while (lh - ll > -1);
+        } while (lh - ll > -1 && (value *= 0.5) > this.threshold);
 
-        return new CombinedList(this.universe.subList(0, lh + 1),
-                this.universe.subList(rl, this.universe.size()));
+        return new CombinedList(this.universe.subList(0, lastSafeL + 1),
+                this.universe.subList(lastSafeR, this.universe.size()));
     }
 
     private double getAsDouble(final int index) {
