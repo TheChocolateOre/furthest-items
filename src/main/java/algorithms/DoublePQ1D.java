@@ -185,4 +185,8 @@ public class DoublePQ1D<T> implements FurthestItems<T> {
         return bucket.furthest;
     }
 
+    @Override
+    public String toString() {
+        return "DoublePQ1D";
+    }
 }//end class DoublePQ1D

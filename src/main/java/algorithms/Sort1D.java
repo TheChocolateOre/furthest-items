@@ -113,6 +113,11 @@ public class Sort1D<T> implements FurthestItems<T> {
                 this.universe.subList(lastSafeR, this.universe.size()));
     }
 
+    @Override
+    public String toString() {
+        return "Sort1D";
+    }
+
     private double getAsDouble(final int index) {
         return this.toDouble.applyAsDouble(this.universe.get(index));
     }
