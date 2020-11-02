@@ -10,8 +10,8 @@ problem asks to find for every item in `Q` its k-furthest items, which belong in
 2. [Guaranteed Drusilla Select](http://www.ratml.org/pub/pdf/2017exploiting.pdf) (GuaranteedDrusilla.java): It is approximate, but with a guaranteed solution quality
 provided by the user.
 3. [Query Dependent](https://www.itu.dk/people/pagh/papers/approx-furthest-neighbor-SISAP15.pdf) (QueryDependent.java): It is approximate and works only for k=1
-4. Double Priority Queue 1-Dimensional (DoublePQ1D.java): It is exact and works only on 1-dimensional data. **It is still in development!**
-5. Sorting 1-Dimensional (Sort1D.java): It is exact or optional guaranteed approximate and works only on 1-dimensional data. **It is still in development!**
+4. Double Priority Queue 1-Dimensional (DoublePQ1D.java): It is exact and works only on 1-dimensional data.
+5. Sorting 1-Dimensional (Sort1D.java): It is exact or optional guaranteed approximate and works only on 1-dimensional data.
 
 ### Disclaimer
 This project has an experimental theme, I would not recommend using it in production.
